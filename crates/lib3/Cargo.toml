@@ -4,4 +4,4 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-lib1 = { path = "../crates/lib1" }
+lib1.workspace = true
