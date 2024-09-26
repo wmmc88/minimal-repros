@@ -3,6 +3,6 @@ members = ["crates/*"]
 resolver = "2"
 
 [workspace.dependencies]
-lib1.path = "crates/lib1"
-lib2.path = "crates/lib2"
+lib1.path = "./crates/lib1"
+lib2.path = "./crates/lib2"
 lib3.path = "./submodule/crates/lib3"
