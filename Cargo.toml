@@ -5,4 +5,4 @@ resolver = "2"
 [workspace.dependencies]
 lib1.path = "crates/lib1"
 lib2.path = "crates/lib2"
-lib3.path = "crates/lib3"
+lib3.path = "./submodule/crates/lib3"
