@@ -2,6 +2,10 @@
 members = ["crates/*"]
 resolver = "2"
 
+[workspace.package]
+edition = "2021"
+repository = "https://github.com/wmmc88/minimal-repros"
+
 [workspace.dependencies]
 lib1.path = "./crates/lib1"
 lib2.path = "./crates/lib2"
