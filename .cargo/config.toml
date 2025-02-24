@@ -1,0 +1,6 @@
+[target.'cfg(target_os = "windows")']
+rustflags = [
+  # -Ccontrol-flow-guard: Enable Control Flow Guard (https://doc.rust-lang.org/rustc/codegen-options/index.html#control-flow-guard, https://learn.microsoft.com/en-us/cpp/build/reference/guard-enable-control-flow-guard).
+  "-C",
+  "control-flow-guard",
+]
