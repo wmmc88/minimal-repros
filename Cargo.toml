@@ -1,6 +1,18 @@
 [package]
-name = "foo"
+name = "no_global_oom_handling-test"
 version = "0.1.0"
 edition = "2024"
 
+[lib]
+# crate-type = ["cdylib"]
+
 [dependencies]
+
+
+[profile.dev]
+panic = "abort"
+lto = "thin" # Requires at least thin lto or else error: error LNK2019: unresolved external symbol __rdl_oom referenced in function __rust_alloc_error_handler␍
+
+[profile.release]
+panic = "abort"
+lto = "thin" # Requires at least thin lto or else error: error LNK2019: unresolved external symbol __rdl_oom referenced in function __rust_alloc_error_handler␍

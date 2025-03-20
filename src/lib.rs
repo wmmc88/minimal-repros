@@ -1,14 +1,34 @@
-pub fn add(left: u64, right: u64) -> u64 {
-    left + right
+#![no_std]
+#![no_main]
+
+extern crate alloc;
+
+use core::alloc::{GlobalAlloc, Layout};
+
+use alloc::{
+    alloc::{alloc, dealloc},
+    vec::Vec,
+};
+
+#[panic_handler]
+fn panic(_info: &core::panic::PanicInfo) -> ! {
+    loop {}
 }
 
-#[cfg(test)]
-mod tests {
-    use super::*;
+#[global_allocator]
+static ALLOCATOR: Allocator = Allocator;
 
-    #[test]
-    fn it_works() {
-        let result = add(2, 2);
-        assert_eq!(result, 4);
+pub struct Allocator;
+unsafe impl GlobalAlloc for Allocator {
+    unsafe fn alloc(&self, layout: Layout) -> *mut u8 {
+        unsafe { alloc(layout) }
     }
+
+    unsafe fn dealloc(&self, ptr: *mut u8, layout: Layout) {
+        unsafe { dealloc(ptr, layout) };
+    }
+}
+
+pub fn foo() {
+    let _v = Vec::<u32>::new();
 }
