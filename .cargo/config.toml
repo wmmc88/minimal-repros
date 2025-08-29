@@ -1,0 +1,7 @@
+[target.x86_64-pc-windows-msvc]
+# Windows MSVC-specific linker flags for debugging
+rustflags = [
+    "-C", "link-arg=/VERBOSE",  # Print library search details
+    "-C", "link-arg=/MAP:LINKERMAP.map",  # Generate map file
+    "--print", "link-args", # Print Linker Command and args
+]
