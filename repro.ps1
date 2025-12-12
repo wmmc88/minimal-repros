@@ -1,7 +1,7 @@
 # PowerShell reproduction script
 
 param(
-    [string]$CargoToolchain = "nightly-2025-11-21",
+    [string]$CargoToolchain = "1.93.0-beta.1",
     [string[]]$CargoCommand = @("check")
 )
 
