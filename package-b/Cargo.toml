@@ -1,7 +1,0 @@
-[package]
-name = "package-b"
-version = "0.1.0"
-edition = "2024"
-
-[dependencies]
-syn = { version = "2.0.111", features = ["extra-traits", "full"] }

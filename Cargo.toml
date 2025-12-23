@@ -1,0 +1,12 @@
+[package]
+name = "minimal-repros"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+
+[profile.dev]
+lto = true
+
+[profile.release]
+lto = true
