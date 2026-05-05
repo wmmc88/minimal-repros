@@ -700,6 +700,18 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "ba73ea9cf16a25df0c8caa16c51acb937d5712a8429db78a3ee29d5dcacd3a65"
 
 [[package]]
+name = "wdk-alloc"
+version = "0.4.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "0000f9d158618c1dce7de647338e8219f9d6b618abd140c373c0552c6dbda1ca"
+dependencies = [
+ "tracing",
+ "tracing-subscriber",
+ "wdk-build",
+ "wdk-sys",
+]
+
+[[package]]
 name = "wdk-build"
 version = "0.5.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -741,6 +753,12 @@ dependencies = [
 ]
 
 [[package]]
+name = "wdk-panic"
+version = "0.4.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "e594cced255434b29bfca586a74653985281377ff4e36b8cfa58fd4c4c63073a"
+
+[[package]]
 name = "wdk-sys"
 version = "0.5.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -758,6 +776,17 @@ dependencies = [
  "tracing-subscriber",
  "wdk-build",
  "wdk-macros",
+]
+
+[[package]]
+name = "wdm-driver"
+version = "0.1.0"
+dependencies = [
+ "main_shared_lib",
+ "tracelogging",
+ "wdk-alloc",
+ "wdk-build",
+ "wdk-panic",
 ]
 
 [[package]]

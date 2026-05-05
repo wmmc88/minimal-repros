@@ -1,6 +1,11 @@
-[package]
-name = "foo"
-version = "0.1.0"
-edition = "2024"
-
-[dependencies]
+[workspace]
+resolver = "3"
+members = [
+    "crates/main_shared_lib",
+    "crates/shared_util_lib",
+]
+exclude = [
+    "drivers/kmdf-driver",
+    "drivers/umdf-driver",
+    "drivers/wdm-driver",
+]

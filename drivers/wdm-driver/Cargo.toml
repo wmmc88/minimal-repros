@@ -1,0 +1,38 @@
+[package]
+name = "wdm-driver"
+version = "0.1.0"
+edition = "2024"
+publish = false
+
+[workspace]
+
+[package.metadata.wdk.driver-model]
+driver-type = "WDM"
+
+[lib]
+crate-type = ["cdylib"]
+
+[build-dependencies]
+wdk-build = "0.5"
+
+[dependencies]
+main_shared_lib = { path = "../../crates/main_shared_lib" }
+# Direct dep on `tracelogging` solely to activate its `kernel_mode` Cargo
+# feature for this driver's build graph. Cargo's per-workspace feature
+# unification then enables `kernel_mode` on the same `tracelogging` instance
+# used by `shared_util_lib`. Because each driver crate is its own standalone
+# Cargo workspace, this activation does NOT leak into the UMDF driver's build.
+tracelogging = { version = "1.2", default-features = false, features = ["etw", "macros", "kernel_mode"] }
+wdk-alloc = "0.4"
+wdk-panic = "0.4"
+
+[features]
+default = []
+
+[profile.dev]
+panic = "abort"
+lto = true
+
+[profile.release]
+panic = "abort"
+lto = true

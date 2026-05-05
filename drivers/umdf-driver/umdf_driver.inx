@@ -1,0 +1,91 @@
+;===================================================================
+; Mixed TraceLogging Repro - UMDF Driver
+;===================================================================
+
+[Version]
+Signature   = "$WINDOWS NT$"
+Class       = Sample
+ClassGuid   = {78A1C341-4539-11d3-B88D-00C04FAD5171}
+Provider    = %ProviderString%
+PnpLockDown = 1
+
+[DestinationDirs]
+DefaultDestDir = 13
+
+[SourceDisksNames]
+1 = %DiskId1%,,,""
+
+[SourceDisksFiles]
+umdf_driver.dll = 1,,
+
+; ================= Class section =====================
+
+[ClassInstall32]
+Addreg=SampleClassReg
+
+[SampleClassReg]
+HKR,,,0,%ClassName%
+HKR,,Icon,,-5
+
+; ================= Install section =================
+
+[Manufacturer]
+%StdMfg%=Standard,NT$ARCH$.10.0...16299, NT$ARCH$.10.0...22000
+
+[Standard.NT$ARCH$.10.0...16299]
+%DeviceDesc%=MixedUMDFDevice_W10, root\MIXED_TRACELOGGING_UMDF_HW_ID
+
+[Standard.NT$ARCH$.10.0...22000]
+%DeviceDesc%=MixedUMDFDevice_W11, root\MIXED_TRACELOGGING_UMDF_HW_ID
+
+[MixedUMDFDevice_W10.NT]
+CopyFiles=Drivers_Dir
+
+[MixedUMDFDevice_W11.NT]
+CopyFiles=Drivers_Dir
+Include=WUDFRD.inf
+Needs=WUDFRD.NT
+
+[Drivers_Dir]
+umdf_driver.dll
+
+[MixedUMDFDevice_W11.NT.HW]
+Include=WUDFRD.inf
+Needs=WUDFRD.NT.HW
+
+; ================= Service installation =================
+[MixedUMDFDevice_W10.NT.Services]
+AddService = WUDFRd, 0x000001fa,WUDFRD_ServiceInstall
+
+[WUDFRD_ServiceInstall]
+DisplayName    = %ServiceDesc%
+ServiceType    = 1               ; SERVICE_KERNEL_DRIVER
+StartType      = 3               ; SERVICE_DEMAND_START
+ErrorControl   = 1               ; SERVICE_ERROR_NORMAL
+ServiceBinary = %12%\WUDFRd.sys
+
+[MixedUMDFDevice_W11.NT.Services]
+Include=WUDFRD.inf
+Needs=WUDFRD.NT.Services
+
+; ================= WDF specific section =================
+[MixedUMDFDevice_W10.NT.Wdf]
+UmdfService=umdf_driver, MixedUMDFDevice_Install
+UmdfServiceOrder=umdf_driver
+
+[MixedUMDFDevice_W11.NT.Wdf]
+UmdfService=umdf_driver, MixedUMDFDevice_Install
+UmdfServiceOrder=umdf_driver
+
+[MixedUMDFDevice_Install]
+UmdfLibraryVersion=$UMDFVERSION$
+ServiceBinary = %13%\umdf_driver.dll
+
+; ================= Strings =================
+[Strings]
+ProviderString         = "MixedTraceLoggingRepro"
+StdMfg                 = "(Standard system devices)"
+DiskId1                = "Mixed TraceLogging UMDF Installation Disk #1"
+DeviceDesc             = "Mixed TraceLogging UMDF Rust Device"
+ServiceDesc            = "Mixed TraceLogging UMDF Rust Service"
+ClassName              = "Sample Device"

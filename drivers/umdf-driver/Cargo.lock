@@ -682,6 +682,14 @@ dependencies = [
 ]
 
 [[package]]
+name = "umdf-driver"
+version = "0.1.0"
+dependencies = [
+ "main_shared_lib",
+ "wdk-build",
+]
+
+[[package]]
 name = "unicode-ident"
 version = "1.0.24"
 source = "registry+https://github.com/rust-lang/crates.io-index"

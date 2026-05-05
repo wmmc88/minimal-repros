@@ -1,0 +1,12 @@
+[package]
+name = "main_shared_lib"
+version = "0.1.0"
+edition = "2024"
+publish = false
+
+[dependencies]
+shared_util_lib = { path = "../shared_util_lib" }
+wdk-sys = "0.5"
+
+[build-dependencies]
+wdk-build = "0.5"
